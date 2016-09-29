@@ -23,6 +23,12 @@ RUN \
 RUN curl -sS https://getcomposer.org/installer | php -- --filename=composer --install-dir=/usr/bin
 
 #
+# PHALCON
+#
+RUN curl -s https://packagecloud.io/install/repositories/phalcon/stable/script.deb.sh | sudo bash && \
+    apt-get -y install php5-phalcon
+
+#
 # PORTS
 #
 #EXPOSE 80
