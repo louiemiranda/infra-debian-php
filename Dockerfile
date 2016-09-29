@@ -12,8 +12,7 @@ RUN \
     apt-get -y install \
         nginx \
         curl \
-        git \
-        php5-fpm php5-cli php5-curl php5-intl php5-curl php5-mysql php5-mcrypt php5-common \
+        php5-fpm php5-cli php5-curl php5-intl php5-curl php5-mysql php5-mcrypt php5-common php5-memcached \
         mysql-client \
         memcached \
         phpunit && \
