@@ -30,10 +30,13 @@ RUN curl -s https://packagecloud.io/install/repositories/phalcon/stable/script.d
 #
 # PORTS
 #
-#EXPOSE 80
+EXPOSE 80
 #EXPOSE 443
 
 #
-# DAEMONIZE
+# DAEMONIZE / STARTUP
 #
+RUN echo "/etc/init.d/php5-fpm start" >> /etc/bash.bashrc
+RUN echo "/etc/init.d/nginx start" >> /etc/bash.bashrc
+
 #CMD ["/usr/sbin/xxxx", "-D", "FOREGROUND"]
