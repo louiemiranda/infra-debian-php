@@ -32,11 +32,18 @@ RUN curl -s https://packagecloud.io/install/repositories/phalcon/stable/script.d
 #
 EXPOSE 80
 #EXPOSE 443
+EXPOSE 9000
 
 #
 # DAEMONIZE / STARTUP
 #
-RUN echo "/etc/init.d/php5-fpm start" >> /etc/bash.bashrc
-RUN echo "/etc/init.d/nginx start" >> /etc/bash.bashrc
+RUN sed -i '/daemonize /c daemonize = no' /etc/php5/fpm/php-fpm.conf && \
+    sed -i '/^listen /c listen = 0.0.0.0:9000' /etc/php5/fpm/pool.d/www.conf && \
+    sed -i 's/^listen.allowed_clients/;listen.allowed_clients/' /etc/php5/fpm/pool.d/www.conf
+
+CMD ["php5-fpm", "-F"]
+
+#RUN echo "/etc/init.d/php5-fpm start" >> /etc/bash.bashrc
+#RUN echo "/etc/init.d/nginx start" >> /etc/bash.bashrc
 
 #CMD ["/usr/sbin/xxxx", "-D", "FOREGROUND"]
