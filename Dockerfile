@@ -50,3 +50,5 @@ RUN sed -i '/daemonize /c daemonize = no' /etc/php5/fpm/php-fpm.conf && \
 
 RUN service php5-fpm start
 RUN service nginx start
+
+WORKDIR /var/www/vcard
