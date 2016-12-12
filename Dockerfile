@@ -56,4 +56,4 @@ ADD scripts /scripts
 RUN chmod -R 755 /scripts
 ENV PATH $PATH:/scripts
 
-WORKDIR /var/www/vcard
+# WORKDIR /var/www/vcard
