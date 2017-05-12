@@ -51,6 +51,7 @@ RUN sed -i '/daemonize /c daemonize = no' /etc/php5/fpm/php-fpm.conf && \
 
 RUN service php5-fpm start
 RUN service nginx start
+RUN service mysql-server start
 
 ADD scripts /scripts
 RUN chmod -R 755 /scripts
