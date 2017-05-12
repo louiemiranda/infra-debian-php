@@ -13,7 +13,7 @@ RUN \
         nginx \
         curl \
         php5-fpm php5-cli php5-curl php5-intl php5-curl php5-mysql php5-mcrypt php5-common php5-memcached php5-json \
-        mysql-client \
+        mysql-client mysql-server \
         memcached \
         awscli \
         phpunit && \
