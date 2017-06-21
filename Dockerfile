@@ -4,6 +4,11 @@
 FROM debian:8
 MAINTAINER Louie Miranda <lmiranda@gmail.com>
 
+# ENV MYSQL_USER=mysql \
+#     MYSQL_DATA_DIR=/var/lib/mysql \
+#     MYSQL_RUN_DIR=/run/mysqld \
+#     MYSQL_LOG_DIR=/var/log/mysql
+
 #
 # UPDATE AND INSTALLS
 #
@@ -33,6 +38,7 @@ RUN curl -s https://packagecloud.io/install/repositories/phalcon/stable/script.d
 #
 EXPOSE 80
 #EXPOSE 443
+#EXPOSE 3306
 EXPOSE 9000
 
 #
