@@ -18,6 +18,10 @@ RUN \
         nginx \
         curl \
         php5-fpm php5-cli php5-curl php5-intl php5-curl php5-mysql php5-mcrypt php5-common php5-memcached php5-json \
+
+        && echo mysql-server mysql-server/root_password password password123 | debconf-set-selections \
+        && echo mysql-server mysql-server/root_password_again password password123 | debconf-set-selections \
+
         mysql-client mysql-server \
         memcached \
         awscli \
@@ -38,7 +42,7 @@ RUN curl -s https://packagecloud.io/install/repositories/phalcon/stable/script.d
 #
 EXPOSE 80
 #EXPOSE 443
-#EXPOSE 3306
+EXPOSE 3306
 EXPOSE 9000
 
 #
