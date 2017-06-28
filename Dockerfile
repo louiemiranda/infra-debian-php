@@ -17,25 +17,42 @@ RUN \
     apt-get -y install \
         nginx \
         curl \
-        php5-fpm php5-cli php5-curl php5-intl php5-curl php5-mysql php5-mcrypt php5-common php5-memcached php5-json \
+        git \
 
-        && echo mysql-server mysql-server/root_password password password123 | debconf-set-selections \
-        && echo mysql-server mysql-server/root_password_again password password123 | debconf-set-selections \
+        # PHP
+        php5-fpm php5-cli php5-curl php5-intl php5-curl php5-mysql php5-mcrypt php5-common php5-memcached php5-json php5-dev \
 
-        mysql-client mysql-server \
+        # && echo mysql-server mysql-server/root_password password password123 | debconf-set-selections \
+        # && echo mysql-server mysql-server/root_password_again password password123 | debconf-set-selections \
+        # mysql-client mysql-server \
+
         memcached \
         awscli \
-        phpunit && \
+        phpunit \
+
+        # Compiler
+        libpcre3-dev gcc make && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 RUN curl -sS https://getcomposer.org/installer | php -- --filename=composer --install-dir=/usr/bin
 
 #
-# PHALCON
+# PHALCON (Stable)
 #
-RUN curl -s https://packagecloud.io/install/repositories/phalcon/stable/script.deb.sh | bash && \
-    apt-get -y install php5-phalcon
+#RUN curl -s https://packagecloud.io/install/repositories/phalcon/stable/script.deb.sh | bash && \
+#    apt-get -y install php5-phalcon
+
+#
+# PHALCON 2.0.13
+#
+RUN /usr/bin/git clone git://github.com/phalcon/cphalcon.git && \
+    cd cphalcon/build/ && \
+    ./install && \
+    cd /tmp && \
+    /bin/rm -rfv /tmp/cphalcon/ && \
+    /usr/bin/apt-get -y purge git php5-dev libpcre3-dev gcc make && apt-get -y autoremove && apt-get clean && rm -rf /var/lib/apt/lists/*
+#RUN /bin/echo 'extension=phalcon.so' >/etc/php5/mods-available/phalcon.ini
 
 #
 # PORTS
