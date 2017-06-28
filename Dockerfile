@@ -38,12 +38,6 @@ RUN \
 RUN curl -sS https://getcomposer.org/installer | php -- --filename=composer --install-dir=/usr/bin
 
 #
-# PHALCON (Stable)
-#
-#RUN curl -s https://packagecloud.io/install/repositories/phalcon/stable/script.deb.sh | bash && \
-#    apt-get -y install php5-phalcon
-
-#
 # PHALCON 2.0.13
 #
 RUN /usr/bin/git clone git://github.com/phalcon/cphalcon.git && \
@@ -52,7 +46,11 @@ RUN /usr/bin/git clone git://github.com/phalcon/cphalcon.git && \
     cd /tmp && \
     /bin/rm -rfv /tmp/cphalcon/ && \
     /usr/bin/apt-get -y purge git php5-dev libpcre3-dev gcc make && apt-get -y autoremove && apt-get clean && rm -rf /var/lib/apt/lists/*
-#RUN /bin/echo 'extension=phalcon.so' >/etc/php5/mods-available/phalcon.ini
+RUN /bin/echo 'extension=phalcon.so' >/etc/php5/mods-available/phalcon.ini
+
+#RUN /usr/sbin/php5enmod phalcon
+#WORKDIR /var/www/phalcon/public
+#RUN /bin/echo '<html><body><h1>It works!</h1></body></html>' > /var/www/phalcon/public/index.html
 
 #
 # PORTS
@@ -69,13 +67,6 @@ RUN sed -i '/daemonize /c daemonize = no' /etc/php5/fpm/php-fpm.conf && \
     sed -i '/^listen /c listen = 0.0.0.0:9000' /etc/php5/fpm/pool.d/www.conf && \
     sed -i 's/^listen.allowed_clients/;listen.allowed_clients/' /etc/php5/fpm/pool.d/www.conf
 
-#CMD ["php5-fpm", "-F"]
-
-#RUN echo "/etc/init.d/php5-fpm start" >> /etc/bash.bashrc
-#RUN echo "/etc/init.d/nginx start" >> /etc/bash.bashrc
-
-#CMD ["/usr/sbin/xxxx", "-D", "FOREGROUND"]
-
 RUN service php5-fpm start
 RUN service nginx start
 # RUN service mysql-server start
@@ -84,4 +75,4 @@ ADD scripts /scripts
 RUN chmod -R 755 /scripts
 ENV PATH $PATH:/scripts
 
-# WORKDIR /var/www/vcard
+WORKDIR /var/www/vcard
